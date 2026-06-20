@@ -1,0 +1,65 @@
+/*
+ * Copyright (C) 2014, The OpenURP Software.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package org.openurp.edu.grade.service
+
+import org.beangle.commons.cdi.BindModule
+import org.openurp.edu.grade.domain.{CourseGradeProvider, DefaultCourseGradeProvider}
+import org.openurp.edu.grade.service.filters.{BestGradeFilter, BestOriginGradeFilter, MakeupGradeFilter, ScriptGradeFilter}
+import org.openurp.edu.grade.service.impl.*
+import org.openurp.edu.program.domain.DefaultAlternativeCourseProvider
+
+class DefaultModule extends BindModule {
+
+  protected override def binding(): Unit = {
+    bind(classOf[TranscriptTemplateServiceImpl])
+    bind("gradeRateService", classOf[GradeRateServiceImpl])
+
+    bind(classOf[CourseGradeSettingsImpl])
+
+    bind("bestCourseGradeProvider", classOf[BestCourseGradeProviderImpl])
+    bind("bestOriginGradeFilter", classOf[BestOriginGradeFilter])
+    bind("bestGradeFilter", classOf[BestGradeFilter])
+
+    bind("clazzGradeService", classOf[ClazzGradeServiceImpl])
+    bind("gradeInputSwithService", classOf[GradeInputSwithServiceImpl])
+
+    bind("gradeFilterRegistry", classOf[SpringGradeFilterRegistry])
+    bind("makeupGradeFilter", classOf[MakeupGradeFilter])
+    bind("scriptGradeFilter", classOf[ScriptGradeFilter])
+
+    bind("courseGradeProvider", classOf[DefaultCourseGradeProvider]).primaryOf(classOf[CourseGradeProvider])
+    bind("courseGradeCalculator", classOf[DefaultCourseGradeCalculator])
+    bind("gpaService", classOf[DefaultGpaService])
+
+    bind("makeupStdStrategy", classOf[MakeupByExamStrategy])
+    bind("gradingModeHelper", classOf[GradingModeHelper])
+    bind("gradingModeStrategy", classOf[DefaultGradingModeStrategy])
+    bind("stdGradeService", classOf[StdGradeServiceImpl])
+
+    bind("recalcGpPublishListener", classOf[RecalcGpPublishListener])
+    bind("examTakerGeneratePublishListener", classOf[ExamTakerGeneratePublishListener])
+    bind("courseGradePublishStack", classOf[CourseGradePublishStack])
+      .property("listeners", list(ref("recalcGpPublishListener"), ref("examTakerGeneratePublishListener")))
+    bind(classOf[DefaultGradeTypePolicy])
+    bind(classOf[TranscriptPlanCourseProvider], classOf[TranscriptGpaProvider], classOf[TranscriptPublishedGradeProvider],
+      classOf[TranscriptStdGraduateProvider], classOf[SpringTranscriptDataProviderRegistry], classOf[TranscriptPublishedExternExamGradeProvider])
+      .shortName()
+
+    bind("alternativeCourseProvider", classOf[DefaultAlternativeCourseProvider])
+  }
+}
