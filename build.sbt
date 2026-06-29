@@ -30,7 +30,7 @@ val openurp_std_api = "org.openurp.std" % "openurp-std-api" % apiVer
 lazy val root = (project in file("."))
   .settings(
     common,
-    name := "openurp-root",
+    name := "openurp-core",
     organization := "org.openurp")
   .aggregate(edu, std)
 
