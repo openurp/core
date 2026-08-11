@@ -124,7 +124,7 @@ object AlternativeGradeFilter {
     var acquiredOn: LocalDate = null
     val it1 = origins.iterator
     while (it1.hasNext) {
-      val course = it1.next
+      val course = it1.next()
       gradeMap.get(course) match
         case Some(grade) =>
           if (grade.courseTakeType.id != CourseTakeType.Exemption) {

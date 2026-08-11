@@ -17,6 +17,7 @@
 
 package org.openurp.edu.grade.service.stat
 
+import org.beangle.commons.lang.math.TinyDecimal5
 import org.openurp.edu.grade.model.StdGpa
 import org.openurp.edu.grade.service.GpaService
 
@@ -29,7 +30,7 @@ object StdGpaHelper {
     }
     for (stdGrade <- stdGradeList) {
       val stdGpa = new StdGpa(stdGrade.std)
-      stdGpa.gpa = gpaService.getGpa(stdGrade.std, stdGrade.grades).doubleValue
+      stdGpa.gpa = TinyDecimal5.of(gpaService.getGpa(stdGrade.std, stdGrade.grades).bigDecimal)
       stdGrade.stdGpa = stdGpa
     }
   }

@@ -136,7 +136,7 @@ object ScheduleDigestor {
     if (activities.isEmpty) return ""
     var format = f
     if (Strings.isEmpty(format)) format = ScheduleDigestor.defaultFormat
-    val clazzx = activities.iterator.next.clazz
+    val clazzx = activities.iterator.next().clazz
     val semester = clazzx.semester
     val teachers = Collections.newSet[Teacher]
     val hasRoom = Strings.contains(format, ScheduleDigestor.room)
@@ -207,7 +207,7 @@ object ScheduleDigestor {
         val roomStr = new StringBuilder("")
         val it = rooms.iterator
         while (it.hasNext) {
-          val room = it.next
+          val room = it.next()
           roomStr.append(room.name)
           if (it.hasNext) roomStr.append(",")
         }
@@ -218,7 +218,7 @@ object ScheduleDigestor {
           val buildingStr = new StringBuilder("")
           val iterator = rooms.iterator
           while (iterator.hasNext) {
-            val room = iterator.next
+            val room = iterator.next()
             room.building foreach { b => buildingStr.append(b.name) }
             if (iterator.hasNext) buildingStr.append(",")
           }
@@ -229,7 +229,7 @@ object ScheduleDigestor {
           val districtStr = new StringBuilder("")
           val it = rooms.iterator
           while (it.hasNext) {
-            val room = it.next
+            val room = it.next()
             districtStr.append(room.campus.name)
             if (it.hasNext) districtStr.append(",")
           }

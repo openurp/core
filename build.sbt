@@ -1,28 +1,29 @@
 import org.openurp.parent.Dependencies.*
 import org.openurp.parent.Settings.*
 
-ThisBuild / version := "0.4.24-SNAPSHOT"
+organization := "org.openurp"
+version := "0.4.24-SNAPSHOT"
 
-ThisBuild / scmInfo := Some(
+scmInfo := Some(
   ScmInfo(
-    url("https://github.com/openurp/core"),
+    uri("https://github.com/openurp/core"),
     "scm:git@github.com:openurp/core.git"
   )
 )
 
-ThisBuild / developers := List(
+developers := List(
   Developer(
     id = "chaostone",
     name = "Tihua Duan",
     email = "duantihua@gmail.com",
-    url = url("http://github.com/duantihua")
+    url = uri("http://github.com/duantihua")
   )
 )
 
-ThisBuild / description := "OpenURP Core Library"
-ThisBuild / homepage := Some(url("http://openurp.github.io/core/index.html"))
+description := "OpenURP Core Library"
+homepage := Some(uri("http://openurp.github.io/core/index.html"))
 
-val apiVer = "1.4.8"
+val apiVer = "1.4.13"
 
 val openurp_edu_api = "org.openurp.edu" % "openurp-edu-api" % apiVer
 val openurp_std_api = "org.openurp.std" % "openurp-std-api" % apiVer
@@ -31,7 +32,7 @@ lazy val root = (project in file("."))
   .settings(
     common,
     name := "openurp-core",
-    organization := "org.openurp")
+    publish / skip := true)
   .aggregate(edu, std)
 
 lazy val edu = (project in file("edu"))
@@ -52,5 +53,3 @@ lazy val std = (project in file("std"))
     libraryDependencies ++= Seq(openurp_std_api, openurp_edu_api),
     libraryDependencies ++= Seq(beangle_ems_app)
   ).dependsOn(edu)
-
-publish / skip := true
