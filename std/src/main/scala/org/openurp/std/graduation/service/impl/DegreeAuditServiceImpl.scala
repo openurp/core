@@ -60,7 +60,7 @@ class DegreeAuditServiceImpl extends DegreeAuditService {
         entityDao.saveOrUpdate(result)
       case Some(program) =>
         val setting = getSetting(result.std).getOrElse(new AuditSetting)
-        val engine = RuleEngine.get(setting.druleIds.orNull)
+        val engine = RuleEngine.get(container,setting.druleIds.orNull)
         val results = engine.execute(result, program)
         results foreach { rs =>
           if (rs._2) {

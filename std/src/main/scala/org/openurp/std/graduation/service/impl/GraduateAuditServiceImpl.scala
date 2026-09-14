@@ -48,7 +48,7 @@ class GraduateAuditServiceImpl extends GraduateAuditService {
     result.failedItems = None
 
     val setting = getSetting(result.std).getOrElse(new AuditSetting)
-    val engine = RuleEngine.get(setting.gruleIds)
+    val engine = RuleEngine.get(container, setting.gruleIds)
     val results = engine.execute(result)
     results foreach { rs =>
       if (rs._2) {
