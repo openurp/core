@@ -159,8 +159,7 @@ object AuditPlanResultMerger extends Logging {
       tar.scores = src.scores
       tar.compulsory = src.compulsory
       tar.hasGrade = src.hasGrade
-      tar.predicted = src.predicted
-      tar.taking = src.taking
+      tar.pendingWay = src.pendingWay
       tar.passedWay = src.passedWay
       tar.terms = src.terms
       tar.remark = src.remark

@@ -18,29 +18,22 @@
 package org.openurp.edu.grade.service.audit
 
 import org.beangle.commons.collection.Collections
-import org.beangle.commons.lang.time.Weeks
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.openurp.base.edu.model.Course
 import org.openurp.edu.clazz.model.CourseTaker
 import org.openurp.edu.grade.domain.{AuditPlanContext, AuditPlanListener}
-import org.openurp.edu.grade.model.{AuditCourseResult, AuditGroupResult, CourseGrade, Grade}
+import org.openurp.edu.grade.model.{AuditCourseResult, AuditGroupResult, CourseGrade, CoursePendingWay, Grade}
 import org.openurp.edu.program.domain.AlternativeCourseProvider
-
-import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class AuditCourseTakerListener extends AuditPlanListener {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
-  var alternativeCourseProvider: AlternativeCourseProvider = _
+  var alternativeCourseProvider: AlternativeCourseProvider = uninitialized
 
   override def end(context: AuditPlanContext): Unit = {
     if (context.result.passed) return
-
-    //毕业学年
-    val std = context.std
-    val now = LocalDate.now
-    val isGraduate = std.graduateOn.isBefore(LocalDate.now) || Weeks.between(now, std.graduateOn) <= 52
 
     val builder = OqlBuilder.from(classOf[CourseTaker], "ct").where("ct.std=:std", context.std)
     builder.where(s"not exists(from ${classOf[CourseGrade].getName} cg where cg.semester=ct.clazz.semester" +
@@ -52,7 +45,7 @@ class AuditCourseTakerListener extends AuditPlanListener {
     courseTakers foreach { ct =>
       result.getCourseResult(ct.course) foreach { cr =>
         used.addOne(ct)
-        updateStatus(ct, cr, cr.groupResult, isGraduate)
+        updateStatus(ct, cr, cr.groupResult)
       }
     }
     courseTakers.subtractAll(used)
@@ -71,8 +64,7 @@ class AuditCourseTakerListener extends AuditPlanListener {
         val hasSubCourses = Collections.newSet[Course]
         courseMap.foreach { case (c, cr) =>
           if (c.subCourse.nonEmpty && c.terms > 0 && reminded.contains(c.subCourse.get)) {
-            cr.taking = true
-            cr.predicted = isGraduate
+            cr.pendingWay = Some(CoursePendingWay.Taking)
             cr.addRemark("在读")
             //有可能是多条。这次我们用filter而不是用find
             courseTakers.filter(x => x.course == c.subCourse.get) foreach { ct =>
@@ -93,7 +85,7 @@ class AuditCourseTakerListener extends AuditPlanListener {
         for (sc <- substitutions if sc.olds.subsetOf(courseMap.keySet) && sc.news.subsetOf(reminded)) {
           for (ori <- sc.olds) {
             val cr = courseMap(ori)
-            cr.taking = true
+            cr.pendingWay = Some(CoursePendingWay.Taking)
             cr.addRemark("在读")
             cr.addRemark(sc.news.map(_.name).mkString(","))
             courseTakers.find(x => sc.news.contains(x.course)) foreach { ct =>
@@ -114,15 +106,15 @@ class AuditCourseTakerListener extends AuditPlanListener {
       val target = context.getGroup(ct.course, courseType).flatMap(x => result.getGroupResult(x.name)).orElse(last)
       target foreach { t =>
         used.addOne(ct)
-        add2Group(ct, t, last.contains(t), isGraduate)
+        add2Group(ct, t, last.contains(t))
       }
     }
 
   }
 
-  private def add2Group(taker: CourseTaker, groupResult: AuditGroupResult, isLast: Boolean, isGraduate: Boolean): Unit = {
+  private def add2Group(taker: CourseTaker, groupResult: AuditGroupResult, isLast: Boolean): Unit = {
     val cr = groupResult.getCourseResult(taker.course).getOrElse(new AuditCourseResult(taker.course))
-    updateStatus(taker, cr, groupResult, isGraduate)
+    updateStatus(taker, cr, groupResult)
     var courseType = taker.courseType
     if (null == courseType) courseType = taker.clazz.courseType
     if (isLast && courseType != groupResult.courseType) {
@@ -149,9 +141,8 @@ class AuditCourseTakerListener extends AuditPlanListener {
     }
   }
 
-  private def updateStatus(ct: CourseTaker, cr: AuditCourseResult, groupResult: AuditGroupResult, isGraduate: Boolean): Unit = {
-    cr.taking = true
-    cr.predicted = isGraduate
+  private def updateStatus(ct: CourseTaker, cr: AuditCourseResult, groupResult: AuditGroupResult): Unit = {
+    cr.pendingWay = Some(CoursePendingWay.Taking)
     cr.addRemark(s"在读 ${ct.semester.code}(${ct.clazz.crn})")
     groupResult.addCourseResult(cr)
   }

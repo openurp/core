@@ -28,10 +28,11 @@ import org.openurp.edu.grade.domain.{AuditPlanContext, AuditPlanListener}
 import org.openurp.edu.grade.model.*
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class AuditExamTakerListener extends AuditPlanListener {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def end(context: AuditPlanContext): Unit = {
     if (context.result.passed) return
@@ -56,7 +57,7 @@ class AuditExamTakerListener extends AuditPlanListener {
           if (!car.passed && examCourses.keySet.contains(car.course)) {
             val semester = examCourses(car.course)
             car.addRemark(s"未出补缓考成绩(${semester.schoolYear}学年${semester.name}学期)")
-            car.taking = true
+            car.pendingWay = Some(CoursePendingWay.Makeup)
             groupResult.addCourseResult(car)
           }
         }

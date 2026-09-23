@@ -21,16 +21,18 @@ import org.beangle.commons.lang.time.Weeks
 import org.beangle.data.dao.EntityDao
 import org.openurp.base.service.SemesterService
 import org.openurp.edu.grade.domain.{AuditPlanContext, AuditPlanListener}
+import org.openurp.edu.grade.model.CoursePendingWay
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 /** 针对毕业生的毕业课程的预审
  */
 class AuditGraduateListener extends AuditPlanListener {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
-  var semesterService: SemesterService = _
+  var semesterService: SemesterService = uninitialized
 
   var courseNames = Set("毕业实习", "毕业论文", "形势与政策", "社会调查与公益劳动", "专业见习", "学科竞赛、创新项目、模拟法庭等"
     , "模拟法庭等实践教学", "学年论文", "模拟法庭等实践教学", "军训")
@@ -48,9 +50,10 @@ class AuditGraduateListener extends AuditPlanListener {
       val plan = context.coursePlan
       for (groupResult <- context.result.groupResults) {
         for (car <- groupResult.courseResults) {
-          if (!car.passed) {
+          //已有未出成绩的后续途径时,不再标记毕业学年课程
+          if (!car.passed && car.pendingWay.isEmpty) {
             if (courseNames.exists(x => car.course.name.contains(x))) {
-              car.predicted = true
+              car.pendingWay = Some(CoursePendingWay.GraduateYear)
               car.addRemark("毕业学年课程")
               groupResult.addCourseResult(car)
             }
