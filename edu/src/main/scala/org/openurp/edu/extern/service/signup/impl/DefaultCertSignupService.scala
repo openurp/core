@@ -27,9 +27,10 @@ import org.openurp.edu.extern.service.signup.{CertSignupChecker, CertSignupServi
 
 import java.time.{Instant, LocalDate}
 import scala.collection.mutable
+import scala.compiletime.uninitialized
 
 class DefaultCertSignupService extends CertSignupService {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
   var checkerStack: mutable.Buffer[CertSignupChecker] = mutable.ArrayBuffer.empty
 
   /**

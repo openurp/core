@@ -23,6 +23,7 @@ import org.openurp.edu.grade.domain.{CourseGradeProvider, GradeFilter}
 import org.openurp.edu.grade.model.CourseGrade
 import org.openurp.edu.grade.service.TranscriptDataProvider
 import org.openurp.edu.grade.service.impl.GradeFilterRegistry
+import scala.compiletime.uninitialized
 
 /**
  * 提供成绩单发布的成绩及其过滤逻辑
@@ -31,9 +32,9 @@ import org.openurp.edu.grade.service.impl.GradeFilterRegistry
  */
 class TranscriptPublishedGradeProvider extends TranscriptDataProvider {
 
-  var registry: GradeFilterRegistry = _
+  var registry: GradeFilterRegistry = uninitialized
 
-  var courseGradeProvider: CourseGradeProvider = _
+  var courseGradeProvider: CourseGradeProvider = uninitialized
 
   def dataName: String = "grades"
 

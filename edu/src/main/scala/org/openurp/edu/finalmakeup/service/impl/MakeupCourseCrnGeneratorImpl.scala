@@ -25,6 +25,7 @@ import org.openurp.edu.exam.model.FinalMakeupCourse
 import org.openurp.edu.finalmakeup.service.MakeupCourseCrnGenerator
 
 import scala.collection.mutable
+import scala.compiletime.uninitialized
 
 object MakeupCourseCrnGeneratorImpl {
   val initCrnNo = "0001"
@@ -32,7 +33,7 @@ object MakeupCourseCrnGeneratorImpl {
 }
 
 class MakeupCourseCrnGeneratorImpl extends MakeupCourseCrnGenerator {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   def gen(makeupCourse: FinalMakeupCourse): Unit = {
     if (!Strings.isEmpty(makeupCourse.crn)) return

@@ -23,13 +23,14 @@ import org.openurp.edu.grade.domain.CourseGradeProvider
 import org.openurp.edu.program.model.Program
 import org.openurp.std.graduation.domain.DegreeAuditChecker
 import org.openurp.std.graduation.model.DegreeResult
+import scala.compiletime.uninitialized
 
 /** 学位审核--补考次数检查
  */
 class DegreeAuditMakupCountChecker extends DegreeAuditChecker {
   var maxCount: Int = 5
-  var entityDao: EntityDao = _
-  var courseGradeProvider: CourseGradeProvider = _
+  var entityDao: EntityDao = uninitialized
+  var courseGradeProvider: CourseGradeProvider = uninitialized
 
   override def check(result: DegreeResult, program: Program): (Boolean, String) = {
     val std = result.std

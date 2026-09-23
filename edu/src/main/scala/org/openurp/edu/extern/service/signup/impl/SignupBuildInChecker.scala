@@ -24,10 +24,11 @@ import org.openurp.edu.extern.service.signup.{CertSignupChecker, CertSignupServi
 
 import java.time.LocalDate
 import java.util
+import scala.compiletime.uninitialized
 
 class SignupBuildInChecker extends CertSignupChecker {
-  var certificateGradeService: CertificateGradeService = _
-  var examSignupService: CertSignupService = _
+  var certificateGradeService: CertificateGradeService = uninitialized
+  var examSignupService: CertSignupService = uninitialized
 
   override def check(student: Student, setting: CertSignupSetting): String = {
     //    if (!student.within(LocalDate.now)) {

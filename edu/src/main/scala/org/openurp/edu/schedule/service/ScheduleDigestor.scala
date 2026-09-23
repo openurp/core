@@ -156,7 +156,7 @@ object ScheduleDigestor {
       if (format.indexOf(ScheduleDigestor.multiTeacher) != -1 && teachers.isEmpty) addTeacher = false
     }
     val CourseArrangeBuf = new StringBuffer
-    mergedActivities = mergedActivities.sorted(PropertyOrdering.by("clazz.course.code,time.startOn"))
+    mergedActivities = mergedActivities.sorted(using PropertyOrdering.by("clazz.course.code,time.startOn"))
     // 合并后的教学活动
     for (activity <- mergedActivities) {
       CourseArrangeBuf.append(format)

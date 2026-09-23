@@ -20,6 +20,7 @@ package org.openurp.edu.grade.service.impl
 import org.beangle.commons.collection.Collections
 import org.openurp.base.model.Semester
 import org.openurp.edu.grade.model.StdGpa
+import scala.compiletime.uninitialized
 
 /**
  * 多个学生的绩点汇总
@@ -27,7 +28,7 @@ import org.openurp.edu.grade.model.StdGpa
  */
 class MultiStdGpa {
 
-  var semesters: List[Semester] = _
+  var semesters: List[Semester] = uninitialized
 
   var stdGpas = Collections.newBuffer[StdGpa]
 

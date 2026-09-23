@@ -27,6 +27,7 @@ import org.openurp.edu.exam.model.ExamTaker
 import org.openurp.edu.grade.model.{CourseGrade, CourseGradeState, ExamGrade}
 import org.openurp.edu.grade.service.impl.ExamTakerGeneratePublishListener.*
 import org.openurp.edu.grade.service.{BaseServiceImpl, CourseGradePublishListener, CourseGradeSetting, CourseGradeSettings}
+import scala.compiletime.uninitialized
 
 object ExamTakerGeneratePublishListener {
 
@@ -37,7 +38,7 @@ object ExamTakerGeneratePublishListener {
 
 class ExamTakerGeneratePublishListener extends BaseServiceImpl with CourseGradePublishListener {
 
-  var settings: CourseGradeSettings = _
+  var settings: CourseGradeSettings = uninitialized
 
   private var forbiddenCourseNames: Array[String] = new Array[String](0)
 

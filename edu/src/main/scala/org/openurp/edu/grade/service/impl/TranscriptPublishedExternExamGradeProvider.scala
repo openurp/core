@@ -26,10 +26,11 @@ import org.openurp.edu.extern.model.CertificateGrade
 import org.openurp.edu.grade.service.TranscriptDataProvider
 
 import scala.collection.mutable.Buffer
+import scala.compiletime.uninitialized
 
 class TranscriptPublishedExternExamGradeProvider extends TranscriptDataProvider {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def getDatas(stds: Seq[Student], options: collection.Map[String, String]): AnyRef = {
     val builder = OqlBuilder.from(classOf[CertificateGrade], "eeg")

@@ -20,10 +20,11 @@ package org.openurp.std.graduation.service.impl
 import org.openurp.edu.grade.service.AuditPlanService
 import org.openurp.std.graduation.domain.GraduateAuditChecker
 import org.openurp.std.graduation.model.GraduateResult
+import scala.compiletime.uninitialized
 
 class GraduateAuditPlanChecker extends GraduateAuditChecker {
 
-  var auditPlanService: AuditPlanService = _
+  var auditPlanService: AuditPlanService = uninitialized
 
   override def check(result: GraduateResult): (Boolean, String) = {
     val rs = auditPlanService.audit(result.std, Map.empty, true)

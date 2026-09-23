@@ -24,12 +24,13 @@ import org.openurp.edu.program.model.Program
 import org.openurp.edu.program.service.ProgramNamingService
 
 import java.text.MessageFormat
+import scala.compiletime.uninitialized
 
 /**
  * Program命名帮助类
  */
 class DefaultProgramNamingService extends ProgramNamingService {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
   /**
    * 培养方案命名格式:专业 方向
    */

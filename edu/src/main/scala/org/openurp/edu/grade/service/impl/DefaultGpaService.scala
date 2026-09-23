@@ -25,6 +25,7 @@ import org.openurp.edu.clazz.domain.CourseTakerProvider
 import org.openurp.edu.grade.domain.{CourseGradeProvider, GpaCalculator, GradeFilter, GradeFilters}
 import org.openurp.edu.grade.model.{CourseGrade, StdGpa, StdSemesterGpa, StdYearGpa}
 import org.openurp.edu.grade.service.GpaService
+import scala.compiletime.uninitialized
 
 /** 缺省绩点计算服务
  */
@@ -32,15 +33,15 @@ class DefaultGpaService extends GpaService {
 
   private val calculator = new GpaCalculator()
 
-  var courseGradeProvider: CourseGradeProvider = _
+  var courseGradeProvider: CourseGradeProvider = uninitialized
 
-  var courseTakerProvider: CourseTakerProvider = _
+  var courseTakerProvider: CourseTakerProvider = uninitialized
 
-  var gradeFilterRegistry: GradeFilterRegistry = _
+  var gradeFilterRegistry: GradeFilterRegistry = uninitialized
 
-  var projectConfigService: ProjectConfigService = _
+  var projectConfigService: ProjectConfigService = uninitialized
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def getGpa(std: Student): BigDecimal = {
     calculator.calcGpa(filter(courseGradeProvider.get(std)))

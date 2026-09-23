@@ -36,20 +36,21 @@ import org.openurp.edu.program.domain.CoursePlanProvider
 import org.openurp.edu.service.Features
 
 import java.time.Instant
+import scala.compiletime.uninitialized
 
 class ClazzGradeServiceImpl extends BaseServiceImpl with ClazzGradeService {
 
-  var calculator: CourseGradeCalculator = _
+  var calculator: CourseGradeCalculator = uninitialized
 
-  var coursePlanProvider: CoursePlanProvider = _
+  var coursePlanProvider: CoursePlanProvider = uninitialized
 
-  var gradingModeStrategy: GradingModeStrategy = _
+  var gradingModeStrategy: GradingModeStrategy = uninitialized
 
-  var publishStack: CourseGradePublishStack = _
+  var publishStack: CourseGradePublishStack = uninitialized
 
-  var projectConfigService: ProjectConfigService = _
+  var projectConfigService: ProjectConfigService = uninitialized
 
-  var settings: CourseGradeSettings = _
+  var settings: CourseGradeSettings = uninitialized
 
   var gradeTypePolicy: GradeTypePolicy = new DefaultGradeTypePolicy
 
@@ -59,7 +60,7 @@ class ClazzGradeServiceImpl extends BaseServiceImpl with ClazzGradeService {
     gradeTypes = gradeTypes.filter { input =>
       input.isGa || input.id == GradeType.Final
     }
-    gradeTypes.sorted(new PropertyOrdering("code"))
+    gradeTypes.sorted(using new PropertyOrdering("code"))
   }
 
   /** 依据状态调整成绩 */
@@ -210,7 +211,7 @@ class ClazzGradeServiceImpl extends BaseServiceImpl with ClazzGradeService {
     if (status == Published) toBeSaved ++= publishStack.onPublish(published, gradeState, gradeTypes)
     toBeSaved ++= Operation.saveOrUpdate(clazz, gradeState).saveOrUpdate(published)
       .build()
-    entityDao.execute(toBeSaved.toArray.toIndexedSeq: _*)
+    entityDao.execute(toBeSaved.toArray.toIndexedSeq*)
   }
 
   /**
@@ -234,8 +235,8 @@ class ClazzGradeServiceImpl extends BaseServiceImpl with ClazzGradeService {
     val state = getState(clazz)
     val courseGrades = getGrades(clazz)
     val gradeSetting = settings.getSetting(clazz.project)
-    val save = Collections.newBuffer[Entity[_]]
-    val remove = Collections.newBuffer[Entity[_]]
+    val save = Collections.newBuffer[Entity[?]]
+    val remove = Collections.newBuffer[Entity[?]]
     val gts = Collections.newSet[GradeType]
     gts += gradeType
 

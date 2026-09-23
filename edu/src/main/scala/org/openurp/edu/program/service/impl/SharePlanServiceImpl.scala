@@ -31,11 +31,12 @@ import org.openurp.edu.program.service.{CoursePlanService, PlanDiff, SharePlanSe
 
 import java.time.Instant
 import scala.collection.mutable
+import scala.compiletime.uninitialized
 
 class SharePlanServiceImpl extends SharePlanService {
 
-  var entityDao: EntityDao = _
-  var codeService: CodeService = _
+  var entityDao: EntityDao = uninitialized
+  var codeService: CodeService = uninitialized
 
   override def move(node: ShareCourseGroup, location: ShareCourseGroup, index: Int): Unit = {
     if (Objects.equals(node.parent.orNull, location)) {

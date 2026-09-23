@@ -23,14 +23,15 @@ import org.openurp.edu.clazz.model.StdCourseAbility
 import org.openurp.edu.grade.domain.{AuditPlanContext, AuditPlanListener}
 import org.openurp.edu.grade.model.{AuditCourseResult, AuditGroupResult}
 import org.openurp.edu.program.domain.AlternativeCourseProvider
+import scala.compiletime.uninitialized
 
 /** 有课程能力等级要求的审核监听
  */
 class AuditCourseAbilityListener extends AuditPlanListener {
 
-  var alternativeCourseProvider: AlternativeCourseProvider = _
+  var alternativeCourseProvider: AlternativeCourseProvider = uninitialized
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   /** 开始审核计划
    *

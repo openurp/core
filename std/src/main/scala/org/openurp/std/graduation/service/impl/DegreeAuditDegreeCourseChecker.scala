@@ -25,14 +25,15 @@ import org.openurp.edu.grade.model.CourseGrade
 import org.openurp.edu.program.model.Program
 import org.openurp.std.graduation.domain.DegreeAuditChecker
 import org.openurp.std.graduation.model.DegreeResult
+import scala.compiletime.uninitialized
 
 /** 学位审核--学位课程
  *
  */
 class DegreeAuditDegreeCourseChecker extends DegreeAuditChecker {
   var minScore: Float = 70
-  var entityDao: EntityDao = _
-  var courseGradeProvider: CourseGradeProvider = _
+  var entityDao: EntityDao = uninitialized
+  var courseGradeProvider: CourseGradeProvider = uninitialized
 
   override def check(result: DegreeResult, program: Program): (Boolean, String) = {
     val std = result.std

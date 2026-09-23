@@ -21,10 +21,11 @@ import org.beangle.data.dao.EntityDao
 import org.openurp.std.fee.model.Debt
 import org.openurp.std.graduation.domain.GraduateAuditChecker
 import org.openurp.std.graduation.model.GraduateResult
+import scala.compiletime.uninitialized
 
 class GraduateAuditDebtChecker extends GraduateAuditChecker {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   def check(result: GraduateResult): (Boolean, String) = {
     val debts = entityDao.findBy(classOf[Debt], "std", result.std)

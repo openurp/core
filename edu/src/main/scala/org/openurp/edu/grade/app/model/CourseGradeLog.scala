@@ -24,6 +24,7 @@ import org.openurp.base.std.model.Student
 import org.openurp.code.edu.model.{ExamStatus, GradeType}
 
 import java.time.Instant
+import scala.compiletime.uninitialized
 
 /**
  * 成绩新增/修改记录
@@ -31,31 +32,31 @@ import java.time.Instant
  */
 class CourseGradeLog extends LongId {
 
-  var std: Student = _
+  var std: Student = uninitialized
 
-  var course: Course = _
+  var course: Course = uninitialized
 
-  var semester: Semester = _
+  var semester: Semester = uninitialized
 
-  var gradeType: GradeType = _
+  var gradeType: GradeType = uninitialized
 
-  var oldScore: String = _
+  var oldScore: String = uninitialized
 
-  var newScore: String = _
+  var newScore: String = uninitialized
 
-  var oldExamStatus: ExamStatus = _
+  var oldExamStatus: ExamStatus = uninitialized
 
-  var newExamStatus: ExamStatus = _
+  var newExamStatus: ExamStatus = uninitialized
 
-  var gradeId: Long = _
+  var gradeId: Long = uninitialized
 
-  var updatedAt: Instant = _
+  var updatedAt: Instant = uninitialized
 
-  var operator: String = _
+  var operator: String = uninitialized
 
-  var updatedFrom: String = _
+  var updatedFrom: String = uninitialized
 
-  var removed: Boolean = _
+  var removed: Boolean = uninitialized
 
-  var remark: String = _
+  var remark: String = uninitialized
 }

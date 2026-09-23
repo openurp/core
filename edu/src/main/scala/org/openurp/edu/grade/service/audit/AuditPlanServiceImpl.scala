@@ -28,19 +28,20 @@ import org.openurp.edu.grade.model.AuditPlanResult
 import org.openurp.edu.grade.service.AuditPlanService
 import org.openurp.edu.program.domain.CoursePlanProvider
 import org.openurp.edu.service.Features
+import scala.compiletime.uninitialized
 
 class AuditPlanServiceImpl extends DefaultPlanAuditor, AuditPlanService, Logging {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
-  var coursePlanProvider: CoursePlanProvider = _
-  var courseGradeProvider: CourseGradeProvider = _
-  var projectConfigService: ProjectConfigService = _
+  var coursePlanProvider: CoursePlanProvider = uninitialized
+  var courseGradeProvider: CourseGradeProvider = uninitialized
+  var projectConfigService: ProjectConfigService = uninitialized
 
-  var container: Container = _
+  var container: Container = uninitialized
   var listeners: Map[Int, Seq[AuditPlanListener]] = Map.empty
 
-  var defaultListenerNames: String = _
+  var defaultListenerNames: String = uninitialized
 
   def audit(std: Student, params: collection.Map[String, Any], persist: Boolean): AuditPlanResult = {
     val existResults = entityDao.findBy(classOf[AuditPlanResult], "std", std).headOption

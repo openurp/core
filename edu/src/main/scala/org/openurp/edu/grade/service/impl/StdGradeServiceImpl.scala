@@ -29,10 +29,11 @@ import org.openurp.edu.grade.model.CourseGrade
 import org.openurp.edu.grade.service.StdGradeService
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class StdGradeServiceImpl extends StdGradeService {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   def stdByCode(
                  stdCode: String,

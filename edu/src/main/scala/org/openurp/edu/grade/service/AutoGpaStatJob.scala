@@ -27,13 +27,14 @@ import org.openurp.base.std.model.Student
 import org.openurp.edu.grade.model.{CourseGrade, StdGpa}
 
 import java.time.{Instant, LocalDate}
+import scala.compiletime.uninitialized
 
 /** GPA定时计算服务
  */
 class AutoGpaStatJob extends AbstractDaoTask, Scheduled, Logging {
-  var gpaService: GpaService = _
+  var gpaService: GpaService = uninitialized
 
-  var expression: String = _
+  var expression: String = uninitialized
   // one day
   var minUpdateDays = 1
   // 每次计算多少个

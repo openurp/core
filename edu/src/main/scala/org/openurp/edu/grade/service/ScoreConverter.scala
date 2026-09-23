@@ -27,7 +27,7 @@ import java.text.NumberFormat
 class ScoreConverter(private var config: GradeRateConfig, private var exprEvaluator: ExprEvaluator) {
 
   /** 默认成绩 */
-  private[this] val defaultScoreMap = Collections.newMap[String, Float]
+  private val defaultScoreMap = Collections.newMap[String, Float]
 
   if (null != config) {
     val iterator = config.items.iterator

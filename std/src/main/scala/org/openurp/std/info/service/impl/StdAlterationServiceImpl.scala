@@ -30,12 +30,13 @@ import org.openurp.std.alter.model.{AlterMeta, StdAlterApply, StdAlteration, Std
 import org.openurp.std.info.service.StdAlterationService
 
 import java.time.{LocalDate, ZoneId}
+import scala.compiletime.uninitialized
 
 class StdAlterationServiceImpl extends StdAlterationService {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
-  var semesterService: SemesterService = _
+  var semesterService: SemesterService = uninitialized
 
   override def apply(alteration: StdAlteration, std: Student): String = {
     var target = std.states.find(x => !alteration.alterOn.isBefore(x.beginOn) && !alteration.alterOn.isAfter(x.endOn))

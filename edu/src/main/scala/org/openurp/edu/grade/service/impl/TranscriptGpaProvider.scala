@@ -23,6 +23,7 @@ import org.openurp.edu.grade.domain.{CourseGradeProvider, GpaCalculator, GradeFi
 import org.openurp.edu.grade.model.StdGpa
 import org.openurp.edu.grade.service.TranscriptDataProvider
 import org.openurp.edu.grade.service.impl.GradeFilterRegistry
+import scala.compiletime.uninitialized
 
 /**
  * 成绩绩点提供者
@@ -31,9 +32,9 @@ import org.openurp.edu.grade.service.impl.GradeFilterRegistry
  */
 class TranscriptGpaProvider extends TranscriptDataProvider {
 
-  var courseGradeProvider: CourseGradeProvider = _
+  var courseGradeProvider: CourseGradeProvider = uninitialized
 
-  var gradeFilterRegistry: GradeFilterRegistry = _
+  var gradeFilterRegistry: GradeFilterRegistry = uninitialized
 
   def dataName: String = "gpas"
 

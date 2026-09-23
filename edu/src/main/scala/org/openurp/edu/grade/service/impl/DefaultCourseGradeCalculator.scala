@@ -28,6 +28,7 @@ import org.openurp.edu.grade.service.{CourseGradeCalculator, GradeRateService}
 import org.openurp.edu.service.Features
 
 import java.time.Instant
+import scala.compiletime.uninitialized
 
 object DefaultCourseGradeCalculator {
 
@@ -49,11 +50,11 @@ import org.openurp.edu.grade.service.impl.DefaultCourseGradeCalculator.*
 
 class DefaultCourseGradeCalculator extends CourseGradeCalculator {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
-  var gradeRateService: GradeRateService = _
+  var gradeRateService: GradeRateService = uninitialized
 
-  var projectConfigService: ProjectConfigService = _
+  var projectConfigService: ProjectConfigService = uninitialized
 
   var minEndScore: Float = 0
 

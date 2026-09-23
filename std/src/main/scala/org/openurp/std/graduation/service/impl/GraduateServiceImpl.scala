@@ -22,10 +22,11 @@ import org.openurp.base.model.Project
 import org.openurp.base.std.model.Student
 import org.openurp.std.graduation.model.{GraduateBatch, GraduateResult}
 import org.openurp.std.graduation.service.GraduateService
+import scala.compiletime.uninitialized
 
 class GraduateServiceImpl extends GraduateService {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def getBatches(project: Project): Seq[GraduateBatch] = {
     val query = OqlBuilder.from(classOf[GraduateBatch], "batch")

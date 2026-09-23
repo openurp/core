@@ -29,10 +29,11 @@ import org.openurp.edu.course.service.CourseTaskService
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
+import scala.compiletime.uninitialized
 
 class CourseTaskServiceImpl extends CourseTaskService {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def initTask(project: Project, semester: Semester): Int = {
     val builder = OqlBuilder.from[Array[Any]](classOf[Clazz].getName, "clazz")

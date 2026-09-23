@@ -22,9 +22,10 @@ import org.openurp.base.std.model.Student
 import org.openurp.code.edu.model.Certificate
 import org.openurp.edu.extern.model.CertificateGrade
 import org.openurp.edu.extern.service.CertificateGradeService
+import scala.compiletime.uninitialized
 
 class DefaultCertificateGradeService extends CertificateGradeService {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def getBest(std: Student, cert: Certificate): CertificateGrade = {
     val builder = OqlBuilder.from(classOf[CertificateGrade], "g")

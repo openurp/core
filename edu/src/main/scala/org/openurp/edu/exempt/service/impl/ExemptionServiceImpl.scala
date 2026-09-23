@@ -35,18 +35,19 @@ import org.openurp.edu.program.domain.CoursePlanProvider
 import org.openurp.edu.program.model.{CoursePlan, PlanCourse, Program}
 
 import java.time.{LocalDate, YearMonth}
+import scala.compiletime.uninitialized
 
 class ExemptionServiceImpl extends ExemptionService {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
-  var semesterService: SemesterService = _
+  var semesterService: SemesterService = uninitialized
 
-  var coursePlanProvider: CoursePlanProvider = _
+  var coursePlanProvider: CoursePlanProvider = uninitialized
 
-  var gradeRateService: GradeRateService = _
+  var gradeRateService: GradeRateService = uninitialized
 
-  var evaluator: ExprEvaluator = _
+  var evaluator: ExprEvaluator = uninitialized
 
   override def calcExemptScore(grade: CertificateGrade): Option[Float] = {
     val q = OqlBuilder.from(classOf[CertExemptSetting], "setting")

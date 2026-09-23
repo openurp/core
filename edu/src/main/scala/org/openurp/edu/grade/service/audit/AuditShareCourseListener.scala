@@ -20,13 +20,14 @@ package org.openurp.edu.grade.service.audit
 import org.beangle.data.dao.EntityDao
 import org.openurp.edu.grade.domain.{AuditPlanContext, AuditPlanListener}
 import org.openurp.edu.grade.model.AuditCourseResult
+import scala.compiletime.uninitialized
 
 /** 公共课程按照类别审核匹配
  * 处理剩余成绩放入对应类别的审核结果组,没有找到组的不处理，留给公选课监听器
  */
 class AuditShareCourseListener extends AuditPlanListener {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def end(context: AuditPlanContext): Unit = {
     if (context.result.passed) return

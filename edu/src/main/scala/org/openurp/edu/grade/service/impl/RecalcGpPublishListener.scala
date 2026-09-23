@@ -24,10 +24,11 @@ import org.openurp.edu.grade.model.CourseGradeState
 import org.openurp.edu.grade.service.CourseGradeCalculator
 import org.openurp.edu.grade.service.CourseGradePublishListener
 import org.beangle.data.dao.Operation
+import scala.compiletime.uninitialized
 
 class RecalcGpPublishListener extends CourseGradePublishListener {
 
-  var calculator: CourseGradeCalculator = _
+  var calculator: CourseGradeCalculator = uninitialized
 
   def onPublish(grade: CourseGrade, gradeTypes: Iterable[GradeType]): collection.Seq[Operation] = {
     if (gradeTypes.exists(x => x.id == GradeType.MakeupGa || x.id == GradeType.DelayGa)) {

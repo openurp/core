@@ -24,10 +24,11 @@ import org.openurp.code.edu.model.CourseType
 import org.openurp.edu.grade.domain.{AuditPlanContext, AuditPlanListener}
 import org.openurp.edu.grade.model.{AuditGroupResult, CoursePassedWay}
 import org.openurp.edu.program.model.{CourseGroup, ExemptCourse, StdExemptCourse}
+import scala.compiletime.uninitialized
 
 class AuditExemptCourseListener extends AuditPlanListener {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def start(context: AuditPlanContext): Unit = {
     val std = context.result.std

@@ -21,11 +21,12 @@ import org.beangle.data.dao.EntityDao
 import org.openurp.code.edu.model.CourseType
 import org.openurp.edu.grade.domain.{AuditPlanContext, AuditPlanListener}
 import org.openurp.edu.grade.model.{AuditCourseResult, AuditGroupResult}
+import scala.compiletime.uninitialized
 
 /** 计划外课程
  */
 class AuditLastListener extends AuditPlanListener{
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def end(context: AuditPlanContext): Unit = {
     val result = context.result

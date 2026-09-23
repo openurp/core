@@ -23,10 +23,11 @@ import org.openurp.edu.grade.domain.{AuditPlanContext, AuditPlanListener, GradeC
 import org.openurp.edu.grade.model.{AuditCourseResult, CourseGrade}
 import org.openurp.edu.program.domain.AlternativeCourseProvider
 import org.openurp.edu.program.model.AlternativeCourse
+import scala.compiletime.uninitialized
 
 class AuditAlternativeListener extends AuditPlanListener {
 
-  var alternativeCourseProvider: AlternativeCourseProvider = _
+  var alternativeCourseProvider: AlternativeCourseProvider = uninitialized
 
   override def end(context: AuditPlanContext): Unit = {
     if (context.result.passed) return

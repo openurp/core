@@ -24,9 +24,10 @@ import org.openurp.edu.extern.model.CertificateGrade
 import org.openurp.edu.program.model.Program
 import org.openurp.std.graduation.domain.DegreeAuditChecker
 import org.openurp.std.graduation.model.DegreeResult
+import scala.compiletime.uninitialized
 
 class DegreeAuditCertificateChecker extends DegreeAuditChecker {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
   var certificateIds: String = null
   var validityYear = 5
 

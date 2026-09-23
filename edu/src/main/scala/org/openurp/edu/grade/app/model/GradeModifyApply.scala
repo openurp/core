@@ -26,6 +26,7 @@ import org.openurp.base.model.Semester
 import org.openurp.base.std.model.Student
 
 import GradeModifyApply._
+import scala.compiletime.uninitialized
 
 object GradeModifyApply {
 
@@ -52,7 +53,7 @@ object GradeModifyApply {
     }
 
     class GradeModifyStatus extends Val {
-      var fullName: String = _
+      var fullName: String = uninitialized
       def this(fullName: String) = {
         this()
         this.fullName = fullName
@@ -67,52 +68,52 @@ object GradeModifyApply {
 @SerialVersionUID(-4325413107423926231L)
 class GradeModifyApply extends LongId {
 
-  var std: Student = _
+  var std: Student = uninitialized
 
-  var semester: Semester = _
+  var semester: Semester = uninitialized
 
-  var project: Project = _
+  var project: Project = uninitialized
 
-  var course: Course = _
+  var course: Course = uninitialized
 
   /** 成绩类型 */
-  var gradeType: GradeType = _
+  var gradeType: GradeType = uninitialized
 
   /** 考试情况 */
-  var examStatus: ExamStatus = _
+  var examStatus: ExamStatus = uninitialized
 
   /** 原考试情况 */
-  var examStatusBefore: ExamStatus = _
+  var examStatusBefore: ExamStatus = uninitialized
 
   /** 原得分 */
-  var origScore: java.lang.Float = _
+  var origScore: java.lang.Float = uninitialized
 
   /** 原得分字面值 */
-  var origScoreText: String = _
+  var origScoreText: String = uninitialized
 
   /** 得分 */
-  var score: java.lang.Float = _
+  var score: java.lang.Float = uninitialized
 
   /** 得分字面值 */
-  var scoreText: String = _
+  var scoreText: String = uninitialized
 
   /** 审核状态 */
   var status: GradeModifyStatus.Value = GradeModifyStatus.NOT_AUDIT
 
   /** 申请理由 */
-  var applyReason: String = _
+  var applyReason: String = uninitialized
 
   /** 审核理由 */
-  var auditReason: String = _
+  var auditReason: String = uninitialized
 
   /** 申请人 */
-  var applyer: String = _
+  var applyer: String = uninitialized
 
   /** 审核人 */
-  var auditer: String = _
+  var auditer: String = uninitialized
 
   /** 最终审核人 */
-  var finalAuditer: String = _
+  var finalAuditer: String = uninitialized
 
   def hasChange(): Boolean = {
     if (this.score == null || this.origScore == null) {

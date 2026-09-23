@@ -26,10 +26,11 @@ import org.openurp.edu.clazz.service.ClazzDocService
 
 import java.io.InputStream
 import java.time.Instant
+import scala.compiletime.uninitialized
 
 class ClazzDocServiceImpl extends ClazzDocService {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def createDoc(clazz: Clazz, name: String, url: Option[String], in: Option[InputStream], fileName: Option[String]): ClazzDoc = {
     val doc = new ClazzDoc

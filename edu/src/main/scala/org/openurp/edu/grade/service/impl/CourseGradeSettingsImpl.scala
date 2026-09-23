@@ -24,12 +24,13 @@ import org.openurp.base.service.ProjectConfigService
 import org.openurp.code.edu.model.{CourseTakeType, ExamStatus, GradeType}
 import org.openurp.code.service.CodeService
 import org.openurp.edu.grade.service.{BaseServiceImpl, CourseGradeSetting, CourseGradeSettings}
+import scala.compiletime.uninitialized
 
 class CourseGradeSettingsImpl extends BaseServiceImpl, CourseGradeSettings {
 
-  var codeService: CodeService = _
+  var codeService: CodeService = uninitialized
 
-  var configService: ProjectConfigService = _
+  var configService: ProjectConfigService = uninitialized
 
   def getSetting(project: Project): CourseGradeSetting = {
     val settingStr = configService.get(project, "edu.grade.setting", "")

@@ -22,10 +22,11 @@ import org.openurp.base.std.model.Student
 import org.openurp.edu.grade.domain.DefaultCourseGradeProvider
 import org.openurp.edu.grade.model.CourseGrade
 import org.openurp.edu.grade.service.filters.BestGradeFilter
+import scala.compiletime.uninitialized
 
 class BestCourseGradeProviderImpl extends DefaultCourseGradeProvider {
 
-  var bestGradeFilter: BestGradeFilter = _
+  var bestGradeFilter: BestGradeFilter = uninitialized
 
   override def get(std: Student, semesters: Iterable[Semester]): Seq[CourseGrade] = {
     val grades = super.get(std, semesters)

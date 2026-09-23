@@ -22,9 +22,10 @@ import org.openurp.edu.grade.model.AuditPlanResult
 import org.openurp.edu.program.model.Program
 import org.openurp.std.graduation.domain.DegreeAuditChecker
 import org.openurp.std.graduation.model.DegreeResult
+import scala.compiletime.uninitialized
 
 class DegreeAuditPlanChecker extends DegreeAuditChecker {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def check(result: DegreeResult, program: Program): (Boolean, String) = {
     val std = result.std

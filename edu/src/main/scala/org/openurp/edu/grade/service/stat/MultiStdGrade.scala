@@ -24,6 +24,7 @@ import org.openurp.base.edu.model.Course
 import org.openurp.base.model.Semester
 import org.openurp.base.std.model.{Squad, Student}
 import org.openurp.edu.grade.model.CourseGrade
+import scala.compiletime.uninitialized
 
 /**
  * 多名学生的成绩打印模型<br>
@@ -33,7 +34,7 @@ import org.openurp.edu.grade.model.CourseGrade
  */
 class MultiStdGrade(var semester: Semester, grades: collection.Map[Student, Seq[CourseGrade]], var ratio: Float) {
 
-  var squad: Squad = _
+  var squad: Squad = uninitialized
 
   var courses = Collections.newBuffer[Course]
 
@@ -44,7 +45,7 @@ class MultiStdGrade(var semester: Semester, grades: collection.Map[Student, Seq[
   var extraGradeMap = Collections.newMap[String, collection.Seq[CourseGrade]]
 
   // 最大显示列
-  var maxDisplay: Int = _
+  var maxDisplay: Int = uninitialized
 
   if (!grades.isEmpty) {
     val gradesMap = Collections.newMap[Long, StdGrade]
@@ -109,7 +110,7 @@ class MultiStdGrade(var semester: Semester, grades: collection.Map[Student, Seq[
   def sortStdGrades(cmpWhat: String, isAsc: Boolean): Unit = {
     if (null != stdGrades) {
       val cmp = new PropertyOrdering(cmpWhat, isAsc)
-      stdGrades = stdGrades.sorted(cmp)
+      stdGrades = stdGrades.sorted(using cmp)
     }
   }
 

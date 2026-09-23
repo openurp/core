@@ -23,10 +23,11 @@ import org.openurp.edu.program.model.{MajorPlan, Program, ProgramDoc}
 import org.openurp.edu.program.service.{DocChecker, PlanChecker, ProgramChecker}
 
 import scala.collection.mutable
+import scala.compiletime.uninitialized
 
 class DefaultProgramChecker extends ProgramChecker {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   var planCheckers: mutable.Buffer[PlanChecker] = Collections.newBuffer[PlanChecker]
   var docCheckers: mutable.Buffer[DocChecker] = Collections.newBuffer[DocChecker]

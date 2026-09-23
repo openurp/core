@@ -22,6 +22,7 @@ import java.time.Instant
 import org.beangle.commons.collection.Order
 import org.openurp.code.edu.model.GradeType
 import org.openurp.base.model.Project
+import scala.compiletime.uninitialized
 
 /**
   * 报表设置
@@ -39,7 +40,7 @@ class GradeReportSetting {
   /**
     * 打印成绩类型<br>
     */
-  var gradeFilters: String = _
+  var gradeFilters: String = uninitialized
 
   /**
     * 每页打印的成绩数量
@@ -51,7 +52,7 @@ class GradeReportSetting {
     */
   var fontSize: Int = 10
 
-  var project: Project = _
+  var project: Project = uninitialized
 
   /**
     * 打印奖励学分
@@ -64,17 +65,17 @@ class GradeReportSetting {
   /**
     * 成绩依照什么进行排序,具体含义要依照报表样式
     */
-  var order: Order = _
+  var order: Order = uninitialized
   /**
     * 打印成绩的类型
     */
   var gradeType: GradeType = new GradeType(GradeType.Final)
 
   /** 打印责任人 */
-  var printBy: String = _
+  var printBy: String = uninitialized
 
   /** 打印模板 */
-  var template: String = _
+  var template: String = uninitialized
 
   /** 打印时间 */
   var printAt: Instant = Instant.now

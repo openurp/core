@@ -25,12 +25,13 @@ import org.openurp.base.model.User
 import org.openurp.base.std.model.{Graduate, Student}
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 /** 自动修正学生的学籍状态
  */
 class StudentStateFixer extends AbstractDaoTask, Logging, Scheduled {
 
-  var expression: String = _
+  var expression: String = uninitialized
   var idledays = 90
 
   override def execute(): Unit = {

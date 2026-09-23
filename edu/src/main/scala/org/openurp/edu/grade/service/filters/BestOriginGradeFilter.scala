@@ -23,10 +23,11 @@ import org.openurp.edu.grade.domain.{GradeComparator, GradeFilter}
 import org.openurp.edu.grade.model.CourseGrade
 import org.openurp.edu.program.domain.AlternativeCourseProvider
 import org.openurp.edu.program.model.AlternativeCourse
+import scala.compiletime.uninitialized
 
 class BestOriginGradeFilter extends GradeFilter {
 
-  var alternativeCourseProvider: AlternativeCourseProvider = _
+  var alternativeCourseProvider: AlternativeCourseProvider = uninitialized
 
   private def buildGradeMap(grades: Iterable[CourseGrade]): collection.mutable.Map[Course, CourseGrade] = {
     val gradesMap = Collections.newMap[Course, CourseGrade]

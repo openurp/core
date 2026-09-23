@@ -29,13 +29,14 @@ import org.openurp.edu.grade.service.AuditPlanService
 import org.openurp.edu.service.Features
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 /** 自动审核计划完成情况
  */
 class AutoAuditPlanJob extends AbstractDaoTask, Logging, Scheduled {
-  var auditPlanService: AuditPlanService = _
-  var projectConfigService: ProjectConfigService = _
-  var expression: String = _
+  var auditPlanService: AuditPlanService = uninitialized
+  var projectConfigService: ProjectConfigService = uninitialized
+  var expression: String = uninitialized
 
   override def execute(): Unit = {
     val projects = entityDao.getAll(classOf[Project]).filter(_.active)

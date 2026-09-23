@@ -22,10 +22,11 @@ import org.openurp.base.std.model.Student
 import org.openurp.edu.grade.service.{BaseServiceImpl, TranscriptDataProvider}
 import org.openurp.edu.program.domain.CoursePlanProvider
 import org.openurp.edu.program.model.PlanCourse
+import scala.compiletime.uninitialized
 
 class TranscriptPlanCourseProvider extends BaseServiceImpl, TranscriptDataProvider {
 
-  var coursePlanProvider: CoursePlanProvider = _
+  var coursePlanProvider: CoursePlanProvider = uninitialized
 
   def dataName: String = "planCourses"
 

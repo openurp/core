@@ -22,12 +22,13 @@ import org.beangle.commons.lang.Strings
 import org.beangle.commons.script.ExprEvaluator
 import org.openurp.edu.grade.domain.GradeFilter
 import org.openurp.edu.grade.model.CourseGrade
+import scala.compiletime.uninitialized
 
 class ScriptGradeFilter extends GradeFilter {
 
-  var script: String = _
+  var script: String = uninitialized
 
-  var exprEvaluator: ExprEvaluator = _
+  var exprEvaluator: ExprEvaluator = uninitialized
 
   def this(script: String, exprEvaluator: ExprEvaluator) = {
     this()

@@ -22,6 +22,7 @@ import org.beangle.commons.lang.Numbers
 import org.beangle.data.dao.EntityDao
 import org.openurp.code.edu.model.GradingMode
 import org.openurp.edu.grade.config.GradeRateConfig
+import scala.compiletime.uninitialized
 
 class GradingModeHelper {
 
@@ -29,9 +30,9 @@ class GradingModeHelper {
 
   private var styles = Collections.newMap[String, GradingMode]
 
-  private var defaultGradingMode: GradingMode = _
+  private var defaultGradingMode: GradingMode = uninitialized
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   def init(defaultGradingModeId: Int): Unit = {
     val configs = entityDao.getAll(classOf[GradeRateConfig])

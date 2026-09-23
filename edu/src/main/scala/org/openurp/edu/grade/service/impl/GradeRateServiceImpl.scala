@@ -24,10 +24,11 @@ import org.openurp.base.model.Project
 import org.openurp.code.edu.model.GradingMode
 import org.openurp.edu.grade.config.{GradeRateConfig, GradeRateItem}
 import org.openurp.edu.grade.service.{BaseServiceImpl, GradeRateService, ScoreConverter}
+import scala.compiletime.uninitialized
 
 class GradeRateServiceImpl extends BaseServiceImpl with GradeRateService {
 
-  var exprEvaluator: ExprEvaluator = _
+  var exprEvaluator: ExprEvaluator = uninitialized
 
   /**
    * 查询记录方式对应的配置

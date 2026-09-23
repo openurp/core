@@ -33,16 +33,17 @@ import org.openurp.edu.grade.model.{AuditCourseResult, CourseGrade, Grade}
 import org.openurp.edu.service.Features
 
 import java.time.Instant
+import scala.compiletime.uninitialized
 
 /** 毕业补考服务
  *
  */
 class FinalMakeupServiceImpl extends FinalMakeupService {
-  var entityDao: EntityDao = _
-  var crnGenerator: MakeupCourseCrnGenerator = _
-  var gradeProvider: CourseGradeProvider = _
-  var configService: ProjectConfigService = _
-  var eventbus: DataEventBus = _
+  var entityDao: EntityDao = uninitialized
+  var crnGenerator: MakeupCourseCrnGenerator = uninitialized
+  var gradeProvider: CourseGradeProvider = uninitialized
+  var configService: ProjectConfigService = uninitialized
+  var eventbus: DataEventBus = uninitialized
 
   override def split(makeupCourse: FinalMakeupCourse): Seq[FinalMakeupCourse] = {
     if (Collections.isNotEmpty(makeupCourse.squads)) {

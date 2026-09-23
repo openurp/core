@@ -21,13 +21,14 @@ import org.beangle.commons.collection.Collections
 import org.openurp.edu.grade.domain.GradeFilter
 import org.openurp.edu.grade.model.CourseGrade
 import org.openurp.edu.grade.service.GradeRateService
+import scala.compiletime.uninitialized
 
 /**
  * 想把补考成绩和期末总评平行打印出来的过滤器
  */
 class MakeupGradeFilter extends GradeFilter {
 
-  var gradeRateService: GradeRateService = _
+  var gradeRateService: GradeRateService = uninitialized
 
   override def filter(grades: Iterable[CourseGrade]): Iterable[CourseGrade] = {
     val gradeList = Collections.newBuffer[CourseGrade]

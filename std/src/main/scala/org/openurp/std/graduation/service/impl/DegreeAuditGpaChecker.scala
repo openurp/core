@@ -23,9 +23,10 @@ import org.openurp.edu.grade.model.StdGpa
 import org.openurp.edu.program.model.Program
 import org.openurp.std.graduation.domain.DegreeAuditChecker
 import org.openurp.std.graduation.model.DegreeResult
+import scala.compiletime.uninitialized
 
 class DegreeAuditGpaChecker extends DegreeAuditChecker {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
   var defaultGpa: Double = 2.0d
 
   override def check(result: DegreeResult, program: Program): (Boolean, String) = {

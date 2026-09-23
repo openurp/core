@@ -25,6 +25,7 @@ import org.openurp.base.model.Semester
 import org.openurp.edu.clazz.model.{Clazz, ClazzActivity}
 
 import scala.collection.mutable
+import scala.compiletime.uninitialized
 
 object CourseTable {
   enum Style {
@@ -39,11 +40,11 @@ object CourseTable {
 
 class CourseTable(val semester: Semester, val resource: Object, val category: String) {
   var style = CourseTable.Style.WEEK_TABLE
-  var clazzes: Seq[Clazz] = _
+  var clazzes: Seq[Clazz] = uninitialized
   var activities: Seq[ClazzActivity] = Seq.empty
-  var placePublished: Boolean = _
-  var timePublished: Boolean = _
-  var timeSetting: TimeSetting = _
+  var placePublished: Boolean = uninitialized
+  var timePublished: Boolean = uninitialized
+  var timeSetting: TimeSetting = uninitialized
 
   def setClazzes(classList: Seq[Clazz]): Unit = {
     clazzes = classList

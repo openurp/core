@@ -24,13 +24,14 @@ import org.openurp.edu.grade.model.*
 import org.openurp.edu.grade.service.GradingModeStrategy
 
 import java.time.Instant
+import scala.compiletime.uninitialized
 
 /**
  * 默认成绩记录方式配置方法
  */
 class DefaultGradingModeStrategy extends GradingModeStrategy {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   def configGradingMode(gradeState: CourseGradeState, gradeTypes: Iterable[GradeType]): Unit = {
     if (isDefault(gradeState.gradingMode)) gradeState.gradingMode = getDefaultCourseGradeGradingMode(gradeState)

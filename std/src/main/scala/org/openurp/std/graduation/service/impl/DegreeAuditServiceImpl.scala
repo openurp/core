@@ -28,14 +28,15 @@ import org.openurp.std.graduation.model.{DegreeResult, GraduateBatch, GraduateRe
 import org.openurp.std.graduation.service.DegreeAuditService
 
 import java.time.Instant
+import scala.compiletime.uninitialized
 
 class DegreeAuditServiceImpl extends DegreeAuditService {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
   var checkNames: String = "plan,gpa,certificate"
-  var container: Container = _
+  var container: Container = uninitialized
 
-  var programProvider: ProgramProvider = _
+  var programProvider: ProgramProvider = uninitialized
 
   private def getSetting(std: Student): Option[AuditSetting] = {
     val project = std.project

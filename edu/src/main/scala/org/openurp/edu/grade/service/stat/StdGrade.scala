@@ -21,6 +21,7 @@ import org.beangle.commons.collection.Collections
 import org.openurp.base.std.model.Student
 import org.openurp.edu.grade.domain.GradeFilter
 import org.openurp.edu.grade.model.{CourseGrade, StdGpa}
+import scala.compiletime.uninitialized
 
 /**
  * 学生成绩单打印模型
@@ -28,15 +29,15 @@ import org.openurp.edu.grade.model.{CourseGrade, StdGpa}
  */
 class StdGrade {
 
-  var std: Student = _
+  var std: Student = uninitialized
 
-  var grades: collection.Iterable[CourseGrade] = _
+  var grades: collection.Iterable[CourseGrade] = uninitialized
 
-  var gradeFilters: List[GradeFilter] = _
+  var gradeFilters: List[GradeFilter] = uninitialized
 
-  var stdGpa: StdGpa = _
+  var stdGpa: StdGpa = uninitialized
 
-  var cmp: Ordering[CourseGrade] = _
+  var cmp: Ordering[CourseGrade] = uninitialized
 
   /**
    * 将grades转换成[course.id.toString,courseGrade]样式的map<br>
@@ -69,7 +70,7 @@ class StdGrade {
       }
     }
     if (null != cmp) {
-      grades = grades.toBuffer.sorted(cmp)
+      grades = grades.toBuffer.sorted(using cmp)
     }
     this.cmp = cmp
   }

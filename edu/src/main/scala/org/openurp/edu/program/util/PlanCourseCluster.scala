@@ -30,7 +30,7 @@ object PlanCourseCluster {
    */
   def cluster(group: CourseGroup): Iterable[PlanCourse] = {
     val planCourses = group.orderedPlanCourses
-    val clusters = planCourses.flatten(_.course.cluster).toSet
+    val clusters = planCourses.flatMap(_.course.cluster).toSet
     if (clusters.isEmpty) {
       planCourses
     } else {

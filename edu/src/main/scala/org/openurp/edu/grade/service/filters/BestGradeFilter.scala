@@ -21,13 +21,14 @@ import org.openurp.edu.grade.domain.GradeFilter
 import org.openurp.edu.grade.model.CourseGrade
 import org.openurp.edu.program.domain.AlternativeCourseProvider
 import org.openurp.edu.program.model.AlternativeCourse
+import scala.compiletime.uninitialized
 
 /**
  * 最好成绩过滤器
  */
 class BestGradeFilter extends GradeFilter {
 
-  var alternativeCourseProvider: AlternativeCourseProvider = _
+  var alternativeCourseProvider: AlternativeCourseProvider = uninitialized
 
   override def filter(grades: Iterable[CourseGrade]): Iterable[CourseGrade] = {
     new AlternativeGradeFilter(getAlternatives(grades)).filter(grades)

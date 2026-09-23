@@ -31,11 +31,12 @@ import org.openurp.edu.program.service.{CoursePlanService, PlanDiff}
 
 import java.time.Instant
 import scala.collection.mutable
+import scala.compiletime.uninitialized
 
 class CoursePlanServiceImpl extends CoursePlanService {
 
-  var entityDao: EntityDao = _
-  var codeService: CodeService = _
+  var entityDao: EntityDao = uninitialized
+  var codeService: CodeService = uninitialized
 
   override def move(node: CourseGroup, location: CourseGroup, index: Int): Unit = {
     if (Objects.equals(node.parent.orNull, location)) {
@@ -91,7 +92,7 @@ class CoursePlanServiceImpl extends CoursePlanService {
   private def addCourse(planCourse: PlanCourse, group: AbstractCourseGroup): Unit = {
     var buf = group.planCourses
     buf.subtractOne(planCourse)
-    buf = buf.sorted(PlanCourseOrdering)
+    buf = buf.sorted(using PlanCourseOrdering)
 
     val firstTerm = planCourse.terms.first
     var idx = planCourse.idx.toInt

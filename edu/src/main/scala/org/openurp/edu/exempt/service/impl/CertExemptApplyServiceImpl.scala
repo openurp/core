@@ -28,14 +28,15 @@ import org.openurp.edu.extern.model.CertificateGrade
 import org.openurp.edu.grade.model.Grade
 
 import java.time.Instant
+import scala.compiletime.uninitialized
 
 class CertExemptApplyServiceImpl extends CertExemptApplyService {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
-  var exemptionService: ExemptionService = _
+  var exemptionService: ExemptionService = uninitialized
 
-  var semesterService: SemesterService = _
+  var semesterService: SemesterService = uninitialized
 
   def accept(apply: CertExemptApply): Unit = {
     val grade = convert(apply)

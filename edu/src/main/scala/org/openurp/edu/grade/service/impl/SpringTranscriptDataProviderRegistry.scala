@@ -22,6 +22,7 @@ import org.beangle.commons.cdi.Container
 import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.Strings
 import org.openurp.edu.grade.service.TranscriptDataProvider
+import scala.compiletime.uninitialized
 
 /**
  * 基于spring的过滤器注册表
@@ -32,7 +33,7 @@ class SpringTranscriptDataProviderRegistry extends Initializing {
 
   private val providers = Collections.newMap[String, TranscriptDataProvider]
 
-  var container: Container = _
+  var container: Container = uninitialized
 
   override def init(): Unit = {
     if (null == container) return

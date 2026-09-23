@@ -22,6 +22,7 @@ import org.beangle.data.model.LongId
 import org.openurp.edu.clazz.model.{Clazz, ClazzActivity}
 
 import java.time.{LocalDate, LocalDateTime, LocalTime}
+import scala.compiletime.uninitialized
 
 object LessonSchedule {
 
@@ -84,12 +85,12 @@ object LessonSchedule {
 }
 
 class LessonSchedule extends LongId, Ordered[LessonSchedule] {
-  var task: ClazzTask = _
-  var date: LocalDate = _
-  var time: String = _
-  var units: String = _
-  var hours: Int = _
-  var room: String = _
+  var task: ClazzTask = uninitialized
+  var date: LocalDate = uninitialized
+  var time: String = uninitialized
+  var units: String = uninitialized
+  var hours: Int = uninitialized
+  var room: String = uninitialized
 
   override def compare(that: LessonSchedule): Int = {
     this.orderDayKey.compareTo(that.orderDayKey)
@@ -109,10 +110,10 @@ class LessonSchedule extends LongId, Ordered[LessonSchedule] {
 }
 
 class ClazzTask {
-  var id: String = _
-  var semester: Properties = _
-  var subject: Properties = _
-  var taskType: String = _
+  var id: String = uninitialized
+  var semester: Properties = uninitialized
+  var subject: Properties = uninitialized
+  var taskType: String = uninitialized
   var people: Seq[Properties] = Seq.empty
-  var crn: String = _
+  var crn: String = uninitialized
 }
