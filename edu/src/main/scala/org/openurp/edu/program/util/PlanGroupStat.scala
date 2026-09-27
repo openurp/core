@@ -52,8 +52,10 @@ class PlanGroupStat private(plan: CoursePlan, natures: collection.Seq[TeachingNa
     for (group <- plan.topGroups) {
       statGroup(group)
       val gs = datas(group)
-      creditHours += group.creditHours
-      credits += group.credits
+      // 组上的学分要等 updates() 才回写。这里必须累加本次算出的结果，
+      // 否则计划总分仍是变更前的组学分，删课再加课后总分会少算最新一次变更。
+      creditHours += gs.creditHours
+      credits += gs.credits
       gs.hours foreach { (nature, creditHours) =>
         hours.put(nature, hours.getOrElseUpdate(nature, 0) + creditHours)
       }
